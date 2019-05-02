@@ -36,19 +36,19 @@ app.get('/api/products', function(request, response) {
 });
 
 app.get('/api/products/:id', function(request, response) {
-let {
-  id
-} = request.params;
+  let {
+    id
+  } = request.params;
 
-Product.
-findByPk(id)
-  .then((product) => {
-    if (product) {
-      response.json(product);
-    } else {
-      response.status(404).send();
-    }
-  });
+  Product.
+  findByPk(id)
+    .then((product) => {
+      if (product) {
+        response.json(product);
+      } else {
+        response.status(404).send();
+      }
+    });
 });
 
 
@@ -125,7 +125,7 @@ app.patch('/api/products/:id', function(request, response) {
             }
           })
         });
-      // }
+        // }
+      });
     });
-  });
 });
