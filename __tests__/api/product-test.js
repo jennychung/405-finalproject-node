@@ -35,7 +35,7 @@ it('should create product', () => {
      category: "Acid",
      imageLink: "https://cdn.shopify.com/s/files/1/2090/8057/products/KRAVE_1-2_1_1024x1024.jpg?v=1550835534"
     })
-    .expect('status', 422)
+    .expect('status', 200)
     .expect('json', 'name', 'Kale-lalu-yAHA')
     .expect('json', 'brand', 'Krave Beauty')
     .expect('json', 'category', 'Acid')
@@ -43,23 +43,38 @@ it('should create product', () => {
     .expect('jsonTypes', 'id', Joi.number().required())
 });
 
+it('should return 422 if validation fails', () => {
+  return frisby
+    .post('http://localhost:4000/api/products', {
+      id: 356,
+      name: "",
+      brand: "",
+      category: "",
+      imageLink: ""
+     })
+     .expect('status', 422)
+});
+
 
 it('should return 200 when updating product successfully', () => {
   return frisby
-    .patch('http://localhost:4000/api/products/355', {
-      id: 356,
-     name: "Kale-lalu-yAHA",
-     brand: "Krave Beauty",
-     category: "Acid",
-     imageLink: "https://cdn.shopify.com/s/files/1/2090/8057/products/KRAVE_1-2_1_1024x1024.jpg?v=1550835534"
+    .patch('http://localhost:4000/api/products/10', {
+     name: 'Kale-lalu-yAHA',
+     brand: 'Krave Beauty',
+     category: 'Acid',
+     imageLink: 'https://cdn.shopify.com/s/files/1/2090/8057/products/KRAVE_1-2_1_1024x1024.jpg?v=1550835534'
     })
     .expect('status', 200)
+    .expect('json', 'name', 'Kale-lalu-yAHA')
+    .expect('json', 'brand', 'Krave Beauty')
+    .expect('json', 'category', 'Acid')
+    .expect('json', 'imageLink', 'https://cdn.shopify.com/s/files/1/2090/8057/products/KRAVE_1-2_1_1024x1024.jpg?v=1550835534')
 });
 
 it('should return a status of 404 when the product to be updated does not exist', () => {
   return frisby
     .patch('http://localhost:4000/api/products/-1', {
-      id: 356,
+    id: 356,
      name: "Kale-lalu-yAHA",
      brand: "Krave Beauty",
      category: "Acid",

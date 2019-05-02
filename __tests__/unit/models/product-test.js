@@ -1,7 +1,7 @@
 const {
   expect
 } = require('chai');
-const Track = require('./../../../models/product');
+const Product = require('./../../../models/product');
 
 describe('product', () => {
   describe('name', () => {
